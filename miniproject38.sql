@@ -1,0 +1,12 @@
+create database mini38_db;
+use mini38_db;
+create table customer(order_id int ,customer_id int primary key ,order_date date);
+create table rating(rating_id int primary key,customer_id int,product_id int,rating decimal(10,2),foreign key(customer_id) references customer(customer_id));
+drop table rating;
+drop table customer;
+insert into customer values(001,101,'2018-05-10'),(002,102,'2020-03-12'),(003,103,'2020-02-11'),(004,104,'2023-05-11');
+select * from customer;
+insert into rating values(001,101,201,4),(002,102,202,3.5),(003,103,203,3);
+select * from rating;
+select customer_id from customer where customer_id not in(select customer_id from rating);
+select c.customer_id from customer c left join rating r on c.customer_id=r.customer_id where r.customer_id is null;
